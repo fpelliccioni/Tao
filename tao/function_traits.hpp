@@ -8,10 +8,10 @@
  * See https://github.com/fpelliccioni/Tao for library home page.
  */
 
-#ifndef BOOST_CPP11_TOOLS_FUNCTION_TRAITS_HPP_INCLUDED
-#define BOOST_CPP11_TOOLS_FUNCTION_TRAITS_HPP_INCLUDED
+#ifndef TAO_CPP11_TOOLS_FUNCTION_TRAITS_HPP_INCLUDED
+#define TAO_CPP11_TOOLS_FUNCTION_TRAITS_HPP_INCLUDED
 
-namespace boost {
+namespace tao {
 
 
 namespace detail {
@@ -57,6 +57,6 @@ struct function_traits<ReturnType(ClassType::*)(Args...)>
 
 
 
-} // namespace boost
+} // namespace tao
 
-#endif // BOOST_CPP11_TOOLS_FUNCTION_TRAITS_HPP_INCLUDED
+#endif // TAO_CPP11_TOOLS_FUNCTION_TRAITS_HPP_INCLUDED
