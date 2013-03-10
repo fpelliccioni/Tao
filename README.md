@@ -1,4 +1,5 @@
 Tao
 ===
 
-C++11 libraries
+Tao is a collection of open-source libraries written using the C++11 programming language.
+
