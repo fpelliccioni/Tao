@@ -1,0 +1,13 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.root))\Build\Common.Build.settings" />
+
+  <ItemGroup>
+      <ProjectFile Include="src\dirs.proj"/>
+      <ProjectFile Include="samples\dirs.proj" Condition="'$(Platform)'!='ARM' or '$(WindowsSDKDesktopARMSupport)' == 'true'"/> 
+      <ProjectFile Include="tests\dirs.proj" Condition="'$(Platform)'!='ARM' or '$(WindowsSDKDesktopARMSupport)' == 'true'"/>
+  </ItemGroup>
+
+  <Import Project="$(TargetsPath)\Common.Build.Traversal.targets" />
+
+</Project>
