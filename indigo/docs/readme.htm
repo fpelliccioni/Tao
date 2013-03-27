@@ -1,0 +1,63 @@
+﻿<H1> Welcome! </H1>
+
+The project "A Standard Programmatic Interface for Asynchronous Operations" (codename "Indigo") is a prototype implementation of the N3327 proposal to JTC1/SC22/WG21 available here:<p>
+
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3327.pdf">http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3327.pdf</a>
+
+
+<H2> Futures and Continuations </H2>
+In C++ 11, <i>std::future</i> is great way of decomposing a program into concurrent parts, but a poor way of composing these parts into a responsive and scalable program. We're proposing a set of addition to <i>std::future</i> to facilitate writing scalable and non-blocking code. 
+
+<p>In the example below, instead of waiting for the file to be copied on the GUI thread, we set a <i>continuation</i> in the <i>then</i> method:<br>
+
+<pre>
+    copy_file(src, dst).then(gui_scheduler, [](std::future<void>) {
+        SetWindowText(hWndBtn, L"File copy done!");
+    });
+</pre>
+
+<p>
+
+
+<H2> Getting Started </H2>
+To get started, you need to update the file future in your Visual Studio 2012 installation. Alternatively, you can run the following script (replacing the underlying hardcoded path below)
+
+<pre>
+@echo off
+setlocal
+
+REM change this:
+SET NEW_FUTURE=<u>D:\indigo\vc\include\future</u>
+
+if exist "%NEW_FUTURE%" goto continue
+echo Cannot find file %NEW_FUTURE%, update failed
+goto done
+
+:continue
+SET VS_DIR=
+for /F "tokens=1,2*" %%i in ('reg query "HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\11.0_Config" /v "ShellFolder"') DO (
+    if "%%i"=="ShellFolder" (
+        SET "VS_DIR=%%k"
+    )
+)
+
+if exist "%VS_DIR%VC\include\backup" goto backup_exists
+md %VS_DIR%VC\include\backup
+echo creating backup:
+echo copying "%VS_DIR%VC\include\future" to "%VS_DIR%VC\include\backup\future"
+copy %VS_DIR%VC\include\future %VS_DIR%VC\include\backup\future
+copy /v /y %NEW_FUTURE% %VS_DIR%VC\include
+if "%errorlevel%"=="0" goto done
+echo Cannot copy file %NEW_FUTURE%, update failed
+goto done
+
+:backup_exists
+echo The file has not been updated to avoid overriding the backup
+goto done
+
+:done
+</pre>
+
+<H2> Feedback </H2>
+Use CodePlex discussions or send email directly to <a href="mailto:artur.laksberg@microsoft.com?Subject=Indigo Project">
+artur.laksberg@microsoft.com</a>
